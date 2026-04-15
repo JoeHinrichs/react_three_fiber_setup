@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>
-      <div id="canvas-container">
+      <div id="canvas-container" className='w-full h-full'>
         <Canvas camera={{ position: [0, 0, 2] }}>
           <Box position={[-0.75, 0, 0]} name="A" />
           <Box position={[0.75, 0, 0]} name="B" />
