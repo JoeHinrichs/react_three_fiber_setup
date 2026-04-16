@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
+import { Mesh } from 'three'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  function Box(props) {
-    const ref = useRef()
+  function Box(props: any) {
+    const ref = useRef<Mesh | null>(null);
     const [hovered, setHover] = useState(false)
     const [rotate, setRotate] = useState(false)
 
@@ -27,15 +27,23 @@ function App() {
         onPointerOut={() => setHover(false)}
       >
         <boxGeometry />
-        <meshBasicMaterial color={hovered ? 0xff0000 : 0x00ff00} wireframe />
+        <meshStandardMaterial color={hovered ? 0xff0000 : 0x00ff00} />
       </mesh>
     )
   }
 
   return (
     <>
-      <div id="canvas-container" className='w-full h-full'>
+      <div id="canvas-container" className='w-screen h-screen'>
         <Canvas camera={{ position: [0, 0, 2] }}>
+          <ambientLight intensity={0.5} />
+          <directionalLight
+            position={[3, 5, 2]}
+            castShadow
+            intensity={Math.PI * 0.5}
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
+          />
           <Box position={[-0.75, 0, 0]} name="A" />
           <Box position={[0.75, 0, 0]} name="B" />
         </Canvas>
